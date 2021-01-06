@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{cace45ac-9c08-4a4f-b1ec-fc823b37b464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D2D">
+      <UniqueIdentifier>{f664ae91-bf3e-462c-8a42-b6546221092c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWork">
+      <UniqueIdentifier>{5db98a31-588d-4c74-87ec-79eb85995d59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWork\Button">
+      <UniqueIdentifier>{e7544d52-0587-4162-ae9f-94564f9913ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWork\Manager">
+      <UniqueIdentifier>{02d0ee38-76a0-4114-8920-d5d8fb7ab714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFrameWork\Timer">
+      <UniqueIdentifier>{af267bd6-4993-4b54-90a5-7f07c75365bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Scene">
+      <UniqueIdentifier>{87bacf4b-4b79-4c97-84f1-f98ed77bf787}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>2DFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>2DFrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>2DFrameWork\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>2DFrameWork\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonFunction.cpp">
+      <Filter>2DFrameWork\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DRender.cpp">
+      <Filter>D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>2DFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>2DFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>2DFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>2DFrameWork\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>2DFrameWork\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>2DFrameWork\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonFunction.h">
+      <Filter>2DFrameWork\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DRender.h">
+      <Filter>D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
