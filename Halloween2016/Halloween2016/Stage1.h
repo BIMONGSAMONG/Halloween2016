@@ -2,10 +2,12 @@
 #include "GameNode.h"
 
 class SpriteSheet;
+class Player;
 class Stage1 : public GameNode
 {
 private:
-	SpriteSheet* spriteSheet;
+	Player* player;
+	SpriteSheet* background;
 
 public:
 	virtual HRESULT Init();

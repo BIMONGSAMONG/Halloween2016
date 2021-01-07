@@ -25,7 +25,8 @@ using namespace D2D1;
 #define RadianToDegree(x)	(x * 180.0f / PI)
 #define SAFE_DELETE(p)		{ if (p) { delete p; p = nullptr; } }
 #define SAFE_ARR_DELETE(p)	{ if (p) { delete[] p; p = nullptr; } }
-#define SAFE_RELEASE(p)		{ if (p) { p->Release(); delete p; p = nullptr; } }
+//#define SAFE_RELEASE(p)		{ if (p) { p->Release(); delete p; p = nullptr; } }
+#define SAFE_RELEASE(p)		{ if (p) { p->Release(); } }
 
 struct FPOINT
 {

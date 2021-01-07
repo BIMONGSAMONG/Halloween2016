@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include "MainGame.h"
-#include "D2DRender.h"
 
 // 전역변수
 HINSTANCE	g_hInstance;		// 프로그램 인스턴스 핸들
@@ -47,20 +46,21 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
 		WINSTART_X, WINSTART_Y, rect.right - rect.left, rect.bottom - rect.top,
 		NULL, NULL, g_hInstance, NULL);
 
-	d2dRender = new D2DRender();
-	if (!d2dRender->Init(g_hWnd))
-	{
-		delete d2dRender;
-		return -1;
-	}
 
 	// 윈도우 출력
 	ShowWindow(g_hWnd, nCmdShow);
 
 	// 실제 작업 사이즈로 설정
-	SetWindowSize(50, 50, WINSIZE_X, WINSIZE_Y);
+	SetWindowSize(WINSTART_X, WINSTART_Y, WINSIZE_X, WINSIZE_Y);
 
+	d2dRender = new D2DRender();
+	if (!d2dRender->Init(g_hWnd))
+	{
+		delete d2dRender;
+		return E_FAIL;
+	}
 	GameNode::Init(d2dRender);
+	
 	g_mainGame.Init();
 
 	// 메시지 큐에 있는 메시지 처리
@@ -76,14 +76,14 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
 		}
 		else
 		{
-			TimerManager::GetSingleton()->Update();
-
-			d2dRender->BeginDraw();
-			d2dRender->ClearScreen(0.0f, 0.0f, 0.5f);		
+			TimerManager::GetSingleton()->Update();		
 			g_mainGame.Update();
+			
+			d2dRender->BeginDraw();
+			d2dRender->ClearScreen(0.0f, 0.0f, 0.5f);
 			g_mainGame.Render();
-
 			d2dRender->EndDraw();
+			
 		}
 	}
 

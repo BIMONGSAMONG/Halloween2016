@@ -34,6 +34,9 @@
     <Filter Include="MainGame\Scene">
       <UniqueIdentifier>{87bacf4b-4b79-4c97-84f1-f98ed77bf787}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\GameObject">
+      <UniqueIdentifier>{8fec3e39-e3cc-419a-9a41-ebe76b0d6f6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>MainGame\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>MainGame\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

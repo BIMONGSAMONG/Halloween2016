@@ -20,13 +20,13 @@ void TimerManager::Update()
         timer->Tick();
 }
 
-void TimerManager::Render()
+void TimerManager::Render(HDC hdc)
 {
-   // if (timer)
-   // {
-   //     wsprintf(szText, "FPS : %d", timer->GetFPS());
-   //     TextOut(d2d, WINSIZE_X - 150, 20, szText, strlen(szText));
-   // }
+   if (timer)
+   {
+       wsprintf(szText, "FPS : %d", timer->GetFPS());
+       TextOut(hdc, WINSIZE_X - 150, 20, szText, strlen(szText));
+   }
 }
 
 float TimerManager::GetElapsedTime()

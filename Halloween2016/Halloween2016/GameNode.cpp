@@ -15,7 +15,7 @@ void GameNode::Update()
 {
 }
 
-void GameNode::Render()
+void GameNode::Render(HDC hdc)
 {
 }
 

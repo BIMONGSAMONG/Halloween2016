@@ -62,10 +62,10 @@ void SceneManager::Update()
         currScene->Update();
 }
 
-void SceneManager::Render()
+void SceneManager::Render(HDC hdc)
 {
     if (currScene)
-        currScene->Render();
+        currScene->Render(hdc);
 }
 
 GameNode* SceneManager::AddScene(string key, GameNode* scene)

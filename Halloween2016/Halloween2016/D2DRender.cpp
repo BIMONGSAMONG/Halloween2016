@@ -8,8 +8,8 @@ D2DRender::D2DRender()
 
 D2DRender::~D2DRender()
 {
-	SAFE_RELEASE(factory);
 	SAFE_RELEASE(renderTarget);
+	SAFE_RELEASE(factory);
 }
 
 bool D2DRender::Init(HWND windowHandle)
@@ -25,6 +25,8 @@ bool D2DRender::Init(HWND windowHandle)
 		&renderTarget);
 
 	if (res != S_OK) return false;
+
+	return true;
 }
 
 void D2DRender::ClearScreen(float r, float g, float b)

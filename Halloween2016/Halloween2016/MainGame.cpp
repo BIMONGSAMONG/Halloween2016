@@ -10,6 +10,11 @@ HRESULT MainGame::Init()
 	SceneManager::GetSingleton()->AddScene("1", new Stage1());
 	SceneManager::GetSingleton()->ChangeScene("1");
 
+	stage1 = new Stage1();
+	stage1->Init();
+
+	hdc = GetDC(g_hWnd);
+
 	isInit = true;
 
 	return S_OK;
@@ -22,22 +27,24 @@ void MainGame::Release()
 	KeyManager::GetSingleton()->Release();
 	SceneManager::GetSingleton()->Release();
 
+	SAFE_RELEASE(stage1);
 
+	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update()
 {
-	SceneManager::GetSingleton()->Update();
-
+	//SceneManager::GetSingleton()->Update();
+	stage1->Update();
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
 void MainGame::Render()
 {
-	SceneManager::GetSingleton()->Render();
+	//SceneManager::GetSingleton()->Render(hdc);
+	TimerManager::GetSingleton()->Render(hdc);
 
-	TimerManager::GetSingleton()->Render();
-
+	stage1->Render();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

@@ -14,7 +14,7 @@ public:
 	HRESULT Init();
 	void Release();
 	void Update();
-	void Render();
+	void Render(HDC hdc);
 
 	float GetElapsedTime();
 };

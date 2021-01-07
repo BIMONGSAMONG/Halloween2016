@@ -54,7 +54,7 @@ void Button::Update()
     }
 }
 
-void Button::Render()
+void Button::Render(HDC hdc)
 {
     switch (state)
     {
