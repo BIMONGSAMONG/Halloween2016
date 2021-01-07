@@ -64,7 +64,7 @@ public:
 	virtual HRESULT Init() override;	
 	virtual void Release() override;	
 	virtual void Update() override;		
-	virtual void Render(HDC hdc) override;
+	virtual void Render() override;
 
 	//void SetButtonFunc(void (*buttonFunc)(void)) { this->buttonFunc = buttonFunc; }
 	//void SetButtonFunc(void (*buttonFunc)(const char*, const char*)) { this->buttonFunc2 = buttonFunc; }

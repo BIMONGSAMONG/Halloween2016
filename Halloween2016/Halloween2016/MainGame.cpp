@@ -27,24 +27,24 @@ void MainGame::Release()
 	KeyManager::GetSingleton()->Release();
 	SceneManager::GetSingleton()->Release();
 
-	SAFE_RELEASE(stage1);
+	//SAFE_RELEASE(stage1);
 
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update()
 {
-	//SceneManager::GetSingleton()->Update();
-	stage1->Update();
+	SceneManager::GetSingleton()->Update();
+	//stage1->Update();
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
 void MainGame::Render()
 {
-	//SceneManager::GetSingleton()->Render(hdc);
+	SceneManager::GetSingleton()->Render();
 	TimerManager::GetSingleton()->Render(hdc);
 
-	stage1->Render();
+	//stage1->Render();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

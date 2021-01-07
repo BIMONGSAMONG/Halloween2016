@@ -18,7 +18,7 @@ public:
 	HRESULT Init();
 	void Release();
 	void Update();
-	void Render(HDC hdc);
+	void Render();
 
 	// ¾À Ãß°¡
 	GameNode* AddScene(string key, GameNode* scene);

@@ -54,7 +54,7 @@ void Button::Update()
     }
 }
 
-void Button::Render(HDC hdc)
+void Button::Render()
 {
     switch (state)
     {
@@ -63,7 +63,7 @@ void Button::Render(HDC hdc)
         //if (img)    img->FrameRender(hdc, pos.x, pos.y, ptUpFrame.x, ptUpFrame.y);
         break;
     case BUTTON_STATE::DOWN:
-       // if (img)    img->FrameRender(hdc, pos.x, pos.y, ptDownFrame.x, ptDownFrame.y);
+       //if (img)    img->FrameRender(hdc, pos.x, pos.y, ptDownFrame.x, ptDownFrame.y);
         break;
     }
 }
