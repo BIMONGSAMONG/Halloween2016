@@ -21,6 +21,8 @@ public:
 	bool IsOnceKeyUp(int key);			// 키가 눌렸다가 떼졌는지 판단
 	bool IsStayKeyDown(int key);		// 키가 눌려져 있는지 판단
 
+	
+
 	bitset<KEY_MAX_COUNT> GetKeyUp() { return keyUp; }
 	bitset<KEY_MAX_COUNT> GetKeyDown() { return keyDown; }
 

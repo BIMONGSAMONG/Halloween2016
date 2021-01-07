@@ -16,6 +16,8 @@ using namespace D2D1;
 #include "SceneManager.h"
 #include "D2DRender.h"
 
+
+
 #define WINSTART_X	50
 #define WINSTART_Y	50
 #define WINSIZE_X	1280
