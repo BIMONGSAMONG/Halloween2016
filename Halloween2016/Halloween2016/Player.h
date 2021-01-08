@@ -1,6 +1,5 @@
 #pragma once
 #include "GameNode.h"
-#include "afxdialogex.h"
 
 class SpriteSheet;
 class Player : public GameNode
@@ -14,7 +13,10 @@ private:
 	D2D1_POINT_2F m_prev_pos;	// 이전 마우스 포인트 위치 저장
 	unsigned char m_isClicked;	// 마우스 클릭 여부
 
-	SpriteSheet* character;
+	State state;
+
+	SpriteSheet* idle;
+	SpriteSheet* drawing;
 	float timer;
 	int frame;
 
@@ -26,8 +28,7 @@ public:
 
 	void Drawing();
 
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	State GetState() { return state; }
+	void SetState(State state) { this->state = state; }
 };
 

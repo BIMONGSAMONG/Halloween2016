@@ -3,10 +3,12 @@
 
 class SpriteSheet;
 class Player;
+class Draw;
 class Stage1 : public GameNode
 {
 private:
 	Player* player;
+	Draw* draw;
 	SpriteSheet* background;
 
 public:

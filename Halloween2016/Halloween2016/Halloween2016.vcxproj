@@ -127,6 +127,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonFunction.cpp" />
     <ClCompile Include="D2DRender.cpp" />
+    <ClCompile Include="Draw.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonFunction.h" />
     <ClInclude Include="D2DRender.h" />
+    <ClInclude Include="Draw.h" />
     <ClInclude Include="GameNode.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />

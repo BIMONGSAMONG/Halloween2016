@@ -78,6 +78,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>MainGame\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>MainGame\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -120,6 +123,9 @@
       <Filter>MainGame</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>MainGame\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
       <Filter>MainGame\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

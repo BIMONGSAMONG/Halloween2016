@@ -88,8 +88,8 @@ void SpriteSheet::Draw(int index, float x, float y)
 		(float)((index / spriteAccross) * spriteHeight + spriteHeight));
 
 	D2D_RECT_F dest = RectF(
-		x - spriteWidth / 2 , y - spriteHeight / 2,
-		x + spriteWidth / 2 , y + spriteHeight / 2);
+		x - spriteWidth / 2 , y - spriteHeight,
+		x + spriteWidth / 2 , y);
 
 	d2d->GetRenderTarget()->DrawBitmap(
 		bmp,

@@ -26,7 +26,15 @@ bool D2DRender::Init(HWND windowHandle)
 			windowHandle, SizeU(rect.right, rect.bottom)),
 		&renderTarget);
 
+	/*res = factory->CreateStrokeStyle(
+		D2D1_CAP_STYLE_ROUND,
+		0.0f,
+		0.0f,
+		
+		);*/
+
 	res = renderTarget->CreateSolidColorBrush(ColorF(0,0,0,0), &brush);
+	
 
 	if (res != S_OK) return false;
 
@@ -44,12 +52,13 @@ void D2DRender::DrawCircle(float x, float y, float radius, float r, float g, flo
 	renderTarget->DrawEllipse(Ellipse(Point2F(x, y), radius, radius), brush, 3.0f);
 }
 
-void D2DRender::DrawLine(D2D1_POINT_2F prevPos, D2D1_POINT_2F currPos, float r, float g, float b, float a)
+void D2DRender::DrawLine(POINT prevPos, POINT currPos, float r, float g, float b, float a)
 {
 	brush->SetColor(ColorF(r, g, b, a));
+	renderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
 	renderTarget->DrawLine(
 		Point2F(prevPos.x, prevPos.y),
 		Point2F(currPos.x, currPos.y),
 		brush,
-		5.0f);
+		20.0f);
 }

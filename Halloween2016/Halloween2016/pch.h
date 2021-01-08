@@ -16,8 +16,6 @@ using namespace D2D1;
 #include "SceneManager.h"
 #include "D2DRender.h"
 
-
-
 #define WINSTART_X	50
 #define WINSTART_Y	50
 #define WINSIZE_X	1280
@@ -61,3 +59,8 @@ inline void SetWindowSize(int startX, int startY, int sizeX, int sizeY)
 	// ¿Ãµø
 	MoveWindow(g_hWnd, startX, startY, rc.right - rc.left, rc.bottom - rc.top, true);
 }
+
+enum State {
+	idle,
+	drawing
+};
