@@ -1,4 +1,6 @@
-﻿  D2DRender.cpp
-d:\team\halloween2016\halloween2016\halloween2016\d2drender.cpp(60): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\team\halloween2016\halloween2016\halloween2016\d2drender.cpp(61): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Halloween2016.vcxproj -> D:\team\Halloween2016\Halloween2016\Debug\Halloween2016.exe
+﻿  Draw.cpp
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(119): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(136): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(163): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(164): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Halloween2016.vcxproj -> C:\Users\USER\Documents\GitHub\Halloween2016\Halloween2016\Debug\Halloween2016.exe

@@ -7,6 +7,7 @@
 #include <map>
 #include <d2d1.h>
 #include <wincodec.h>
+#include <dwrite.h>
 
 using namespace std;
 using namespace D2D1;
@@ -62,5 +63,19 @@ inline void SetWindowSize(int startX, int startY, int sizeX, int sizeY)
 
 enum State {
 	idle,
-	drawing
+	drawing,
+	Width,		// 가로
+	Length,		// 세로
+	Up,			// 위로 뿔
+	Down,		// 아래로 뿔
+	lightning,	// 번개
+	Heart		// 하트
+};
+
+enum Drawing {
+	None,		// 안그린 상태
+	LeftRight,		// 세로
+	UpDown,		// 가로
+	Question,	// /
+	Won			// 
 };
