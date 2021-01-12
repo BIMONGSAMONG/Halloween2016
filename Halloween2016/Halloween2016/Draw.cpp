@@ -38,17 +38,15 @@ void Draw::Update()
 
 		if (timer >= 0.005)
 		{
-			vecMPos.push_back(g_ptMouse); // 일정 시간 마다 마우스 포인터값을 벡터에 추가
-
 			if (vecMPos.size() >= 2) 
 			{
-				if ((vecMPos.back().x == vecMPos[(vecMPos.size() - 2)].x)
-					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y)) // 중복된 값을 제거해 계속 벡터의 값이 늘어나는 것을 방지
+				if (!((vecMPos.back().x == vecMPos[(vecMPos.size() - 2)].x)
+					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y))) // 중복된 값을 제거해 계속 벡터의 값이 늘어나는 것을 방지
 				{
-					vecMPos.erase(vecMPos.end() - 1);
+					vecMPos.push_back(g_ptMouse);
 				}
 			}
-			
+
 			timer = 0;
 		}
 
