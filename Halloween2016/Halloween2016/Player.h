@@ -17,8 +17,12 @@ private:
 
 	SpriteSheet* idle;
 	SpriteSheet* drawing;
+	SpriteSheet* width;
+
 	float timer;
 	int frame;
+	float aniTimer;
+	int aniFrame;
 
 public:
 	virtual HRESULT Init();

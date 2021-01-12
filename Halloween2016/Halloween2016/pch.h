@@ -66,16 +66,20 @@ enum State {
 	drawing,
 	Width,		// 가로
 	Length,		// 세로
-	Up,			// 위로 뿔
-	Down,		// 아래로 뿔
+	UpThorn,			// 위로 뿔
+	DownThorn,		// 아래로 뿔
 	lightning,	// 번개
 	Heart		// 하트
 };
 
 enum Drawing {
 	None,		// 안그린 상태
-	LeftRight,		// 세로
-	UpDown,		// 가로
-	Question,	// /
-	Won			// 
+	Left,
+	Right,		// 가로
+	Up,
+	Down,		// 세로
+	LeftUp,
+	RightDown,	// /
+	LeftDown,
+	RightUp		// won 
 };

@@ -6,11 +6,13 @@ HRESULT Draw::Init()
 	size = 1000;
 	vecMPos.reserve(size);
 	vecDecidedPos.reserve(size);
+	vecDraw.reserve(10);
 
 	state = State::idle;
 	f_Angle = 1000;
 	vecSize = 0;
 
+	nowState = State::idle;
 	nowDrawing = Drawing::None;
 
 	return S_OK;
@@ -20,27 +22,28 @@ void Draw::Release()
 {
 	vecMPos.clear();
 	vecDecidedPos.clear();
+	vecDraw.clear();
 }
 
 void Draw::Update()
 {
 	state = State::idle;
-	
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
 	{
 		state = State::drawing;
+		nowState = State::drawing;
 
 		timer += TimerManager::GetSingleton()->GetElapsedTime();
 
 		if (timer >= 0.005)
 		{
-			vecMPos.push_back(g_ptMouse);
+			vecMPos.push_back(g_ptMouse); // 일정 시간 마다 마우스 포인터값을 벡터에 추가
 
-			if (vecMPos.size() >= 2)
+			if (vecMPos.size() >= 2) 
 			{
 				if ((vecMPos.back().x == vecMPos[(vecMPos.size() - 2)].x)
-					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y))
+					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y)) // 중복된 값을 제거해 계속 벡터의 값이 늘어나는 것을 방지
 				{
 					vecMPos.erase(vecMPos.end() - 1);
 				}
@@ -48,54 +51,40 @@ void Draw::Update()
 			
 			timer = 0;
 		}
-		
 
-		if (vecMPos.size() == vecSize + 5)
+		if (vecDecidedPos.size() >= 1)
+		{
+			HowDrawLine(); // 그리는 방향에 따른 선 판단
+			nowState = WhatShape(); // vecDraw를 보고 어떤 모양을 그렸는지 판단
+		}
+
+		if (vecMPos.size() == vecSize + 5) // 그리는 방향을 보고 기준 Angle을 정하기 위해 시간을 두고 추가함
 		{
 			f_Angle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
 		}
 
-		/*if (f_Angle != 1000)
+		if (f_Angle != 1000)
 		{
-			if (((f_Angle - AnglefromPoints(vecDecidedPos.back(), g_ptMouse)) >= 10)
-				|| ((f_Angle - AnglefromPoints(vecDecidedPos.back(), g_ptMouse)) <= -10))
+			if (((f_Angle - AnglefromPoints(vecDecidedPos.back(), g_ptMouse)) >= 10)		// 정해진 기준 각도에서 -10~10도 사이를 넘어가는 큰 움직임을 보일 때
+				|| ((f_Angle - AnglefromPoints(vecDecidedPos.back(), g_ptMouse)) <= -10))	// 새로운 판단 선을 추가함
 			{
 				vecDecidedPos.push_back(g_ptMouse);
 				vecSize = vecMPos.size();
-			}
-		}*/
-		if (vecDecidedPos.size() >= 1)
-		{
-			float nowAngle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
-			if (((nowAngle >= -5) && (nowAngle <= 5)) || ((nowAngle >= 175) && (nowAngle <= 180))
-				| ((nowAngle >= -180) && (nowAngle <= -175)))
-			{
-				nowDrawing = Drawing::LeftRight;
-			}
-			else if (((nowAngle >= 85) && (nowAngle <= 95)) || ((nowAngle <= -85) && (nowAngle >= -95)))
-			{
-				nowDrawing = Drawing::UpDown;
-			}
-			else if (((nowAngle >= 95) && (nowAngle <= 175)) || ((nowAngle <= -5) && (nowAngle >= -85)))
-			{
-				nowDrawing = Drawing::Question;
-			}
-			else if (((nowAngle >= 5) && (nowAngle <= 85)) || ((nowAngle <= -95) && (nowAngle >= -175)))
-			{
-				nowDrawing = Drawing::Won;
-			}
-			else
-			{
-				nowDrawing = Drawing::None;
+				vecDraw.push_back(nowDrawing);
+				f_Angle = 1000;
 			}
 		}
-		
-				
 	}
+
 	if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
 	{
+		vecDraw.push_back(nowDrawing);
+		state = nowState;
+	
+		// 마우스를 떼면 초기화 시킨다
 		vecMPos.clear();
 		vecDecidedPos.clear();
+		vecDraw.clear();
 		f_Angle = 1000;
 	}
 
@@ -103,11 +92,8 @@ void Draw::Update()
 	{
 		vecDecidedPos.push_back(g_ptMouse);
 		vecSize = vecMPos.size();
-		vecDraw.push_back(nowDrawing);
-		nowDrawing = Drawing::None;
 	}
 
-	
 }
 
 void Draw::Render()
@@ -116,22 +102,59 @@ void Draw::Render()
 	{
 		if (vecMPos.size() >= 2)
 		{
-			for (int i = 0; i < vecMPos.size() - 1; i++)
+			switch (nowState)
 			{
-				d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 1.0, 1.0, 1.0);
-				
+			case idle:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 1.0, 1.0, 1.0);
+				}
+				break;
+			case drawing:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 1.0, 1.0, 1.0);
+				}
+				break;
+			case Width:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.5, 0.5, 1.0);
+				}
+				break;
+			case Length:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 0.5, 1.0, 1.0, 1.0);
+				}
+				break;
+			case UpThorn:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 0.5, 1.0, 0.5, 1.0);
+				}
+				break;
+			case DownThorn:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.8, 0.5, 1.0);
+				}
+				break;
+			case lightning:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.8, 0.3, 1.0);
+				}
+				break;
+			case Heart:
+				break;
+			default:
+				break;
 			}
-
-			/*int startIndex = 0;
-			int vecSize = vecMPos.size() - 5;
-			while (startIndex < vecSize)
-			{
-				d2d->DrawLine(vecMPos[startIndex], vecMPos[startIndex + 5], 1.0f, 1.0, 0.0, 0.0, 1.0);
-				startIndex += 5;
-			}*/
+			
 		}
 
-		if (vecDecidedPos.size() >= 2)
+		/*if (vecDecidedPos.size() >= 2)
 		{
 			for (int i = 0; i < vecDecidedPos.size() - 1; i++)
 			{
@@ -139,7 +162,7 @@ void Draw::Render()
 			}
 		}
 		
-		d2d->DrawLine(vecDecidedPos.back(), g_ptMouse, 1.0f, 1.0, 0.0, 0.0, 1.0);
+		d2d->DrawLine(vecDecidedPos.back(), g_ptMouse, 1.0f, 1.0, 0.0, 0.0, 1.0);*/
 
 		float angle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
 		char text[126] = { '0' };
@@ -156,6 +179,108 @@ void Draw::Render()
 	{
 
 	}
+}
+
+void Draw::HowDrawLine()
+{
+		float nowAngle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
+		if (((nowAngle >= -5) && (nowAngle <= 5)))
+		{
+			nowDrawing = Drawing::Right;
+		}
+		else if (((nowAngle >= 175) && (nowAngle <= 180)) || ((nowAngle >= -180) && (nowAngle <= -175)))
+		{
+			nowDrawing = Drawing::Left;
+		}
+		else if (((nowAngle >= 85) && (nowAngle <= 95)))
+		{
+			nowDrawing = Drawing::Up;
+		}
+		else if (((nowAngle <= -85) && (nowAngle >= -95)))
+		{
+			nowDrawing = Drawing::Down;
+		}
+		else if (((nowAngle >= 95) && (nowAngle <= 175)))
+		{
+			nowDrawing = Drawing::LeftUp;
+		}
+		else if (((nowAngle <= -5) && (nowAngle >= -85)))
+		{
+			nowDrawing = Drawing::RightDown;
+		}
+		else if (((nowAngle >= 5) && (nowAngle <= 85)))
+		{
+			nowDrawing = Drawing::RightUp;
+		}
+		else if (((nowAngle <= -95) && (nowAngle >= -175)))
+		{
+			nowDrawing = Drawing::LeftDown;
+		}
+		else
+		{
+			nowDrawing = Drawing::None;
+		}
+}
+
+State Draw::WhatShape()
+{
+	vecDraw.erase(unique(vecDraw.begin(), vecDraw.end()), vecDraw.end());
+	
+	if (vecDraw.size() == 0)
+	{
+		if ((nowDrawing == Right) || (nowDrawing == Left))
+		{
+			return State::Width;
+		}
+		else if ((nowDrawing == Up) || (nowDrawing == Down))
+		{
+			return State::Length;
+		}
+		else
+		{
+			return State::drawing;
+		}
+	}
+	else if (vecDraw.size() == 1)
+	{
+		if (((vecDraw[0] == RightUp) && (nowDrawing == RightDown))
+			|| ((vecDraw[0] == LeftUp) && (nowDrawing == LeftDown)))
+		{
+			return State::UpThorn;
+		}
+		else if (((vecDraw[0] == RightDown) && (nowDrawing == RightUp))
+			|| ((vecDraw[0] == LeftDown) && (nowDrawing == LeftUp)))
+		{
+			return State::DownThorn;
+		}
+		else
+		{
+			return State::drawing;
+		}	
+	}
+	else if (vecDraw.size() == 2)
+	{
+		if (((vecDraw[0] == RightUp) && (vecDraw[1] == LeftUp) && (nowDrawing == RightUp))
+			|| ((vecDraw[0] == LeftUp) && (vecDraw[1] == RightUp) && (nowDrawing == LeftUp)))
+		{
+			return State::lightning;
+		}
+		else if (((vecDraw[0] == RightDown) && (vecDraw[1] == LeftDown) && (nowDrawing == RightDown))
+			|| ((vecDraw[0] == LeftDown) && (vecDraw[1] == RightDown) && (nowDrawing == LeftDown)))
+		{
+			return State::lightning;
+		}
+		else
+		{
+			return State::drawing;
+		}
+	}
+	else
+	{
+		return State::drawing;
+	}
+	
+
 }
 
 float Draw::AnglefromPoints(POINT pos1, POINT pos2)

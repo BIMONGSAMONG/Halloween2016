@@ -10,6 +10,7 @@ private:
 	int vecSize;
 
 	State state;
+	State nowState;
 
 	float timer;		// 점을 추가할 타이밍
 
@@ -25,6 +26,9 @@ public:
 	virtual void Release();
 	virtual void Update();
 	virtual void Render();
+
+	void HowDrawLine();
+	State WhatShape();
 
 	State GetState() { return state; }
 
