@@ -129,6 +129,7 @@
     <ClCompile Include="D2DRender.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="GameNode.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="D2DRender.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="GameNode.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="pch.h" />

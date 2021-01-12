@@ -1,13 +1,2 @@
-﻿  Draw.cpp
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(108): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(114): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(120): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(126): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(132): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(138): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(140): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(144): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(146): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(288): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\team\halloween2016\halloween2016\halloween2016\draw.cpp(289): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Ghost.cpp
   Halloween2016.vcxproj -> D:\team\Halloween2016\Halloween2016\Debug\Halloween2016.exe
