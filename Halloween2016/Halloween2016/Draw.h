@@ -34,9 +34,10 @@ public:
 	State WhatShape();
 
 	State GetState() { return state; }
-
-	float AnglefromPoints(POINT pos1, POINT pos2);
 	bool GetIsKeyUp() { return isKeyUp; }
 	bool GetIsKeyDown() { return isKeyDown; }
+
+	float AnglefromPoints(POINT pos1, POINT pos2);
+	float DistanceFromPoints(POINT pos1, POINT pos2);
 };
 

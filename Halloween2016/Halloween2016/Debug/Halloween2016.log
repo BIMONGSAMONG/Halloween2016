@@ -1,2 +1,16 @@
-﻿  Player.cpp
+﻿  Draw.cpp
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(109): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(115): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(121): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(127): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(133): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(139): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(141): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(145): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(147): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(151): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(153): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(297): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(298): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\documents\github\halloween2016\halloween2016\halloween2016\draw.cpp(307): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Halloween2016.vcxproj -> C:\Users\USER\Documents\GitHub\Halloween2016\Halloween2016\Debug\Halloween2016.exe

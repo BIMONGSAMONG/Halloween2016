@@ -148,6 +148,10 @@ void Draw::Render()
 				}
 				break;
 			case Heart:
+				for (int i = 0; i < vecMPos.size() - 1; i++)
+				{
+					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.4, 0.7, 1.0);
+				}
 				break;
 			default:
 				break;
@@ -259,7 +263,7 @@ State Draw::WhatShape()
 			return State::drawing;
 		}	
 	}
-	else if (vecDraw.size() == 2)
+	else if (vecDraw.size() >= 2)
 	{
 		if (((vecDraw[0] == RightUp) && (vecDraw[1] == LeftUp) && (nowDrawing == RightUp))
 			|| ((vecDraw[0] == LeftUp) && (vecDraw[1] == RightUp) && (nowDrawing == LeftUp)))
@@ -270,6 +274,10 @@ State Draw::WhatShape()
 			|| ((vecDraw[0] == LeftDown) && (vecDraw[1] == RightDown) && (nowDrawing == LeftDown)))
 		{
 			return State::Lightning;
+		}
+		else if (DistanceFromPoints(vecMPos.front(), g_ptMouse) <= 50)
+		{
+			return State::Heart;
 		}
 		else
 		{
@@ -292,4 +300,9 @@ float Draw::AnglefromPoints(POINT pos1, POINT pos2)
 	float degree = RadianToDegree(atan2(dY, dX));
 
 	return degree;
+}
+
+float Draw::DistanceFromPoints(POINT pos1, POINT pos2)
+{
+	return sqrt(pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2));
 }

@@ -42,7 +42,6 @@ void Player::Release()
 
 void Player::Update()
 {
-	aniTimer = 0;
 	timer += TimerManager::GetSingleton()->GetElapsedTime();
 	if (timer >= 0.07)
 	{
