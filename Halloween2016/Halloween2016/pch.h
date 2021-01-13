@@ -68,7 +68,7 @@ enum State {
 	Length,		// 세로
 	UpThorn,			// 위로 뿔
 	DownThorn,		// 아래로 뿔
-	lightning,	// 번개
+	Lightning,	// 번개
 	Heart		// 하트
 };
 

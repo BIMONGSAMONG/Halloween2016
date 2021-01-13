@@ -18,6 +18,11 @@ private:
 	SpriteSheet* idle;
 	SpriteSheet* drawing;
 	SpriteSheet* width;
+	SpriteSheet* length;
+	SpriteSheet* upThorn;
+	SpriteSheet* downThorn;
+	SpriteSheet* lightning;
+	SpriteSheet* heart;
 
 	float timer;
 	int frame;

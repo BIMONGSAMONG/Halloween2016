@@ -27,7 +27,23 @@ void Stage1::Update()
 	player->Update();
 	draw->Update();
 
-	player->SetState(draw->GetState());
+	if (draw->GetIsKeyUp())
+	{
+		if (draw->GetState() == State::drawing)
+		{
+			player->SetState(State::idle);
+		}
+		else
+		{
+			player->SetState(draw->GetState());
+		}
+		
+	}
+	else if (draw->GetIsKeyDown())
+	{
+		player->SetState(State::drawing);
+	}
+	
 }
 
 void Stage1::Render()

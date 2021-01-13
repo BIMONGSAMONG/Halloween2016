@@ -15,6 +15,9 @@ HRESULT Draw::Init()
 	nowState = State::idle;
 	nowDrawing = Drawing::None;
 
+	isKeyUp = false;
+	isKeyDown = false;
+
 	return S_OK;
 }
 
@@ -27,23 +30,21 @@ void Draw::Release()
 
 void Draw::Update()
 {
-	state = State::idle;
-
+	isKeyUp = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
 	{
-		state = State::drawing;
-		nowState = State::drawing;
-
+		isKeyDown = true;
 		timer += TimerManager::GetSingleton()->GetElapsedTime();
 
 		if (timer >= 0.005)
 		{
+			vecMPos.push_back(g_ptMouse);
 			if (vecMPos.size() >= 2) 
 			{
-				if (!((vecMPos.back().x == vecMPos[(vecMPos.size() - 2)].x)
-					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y))) // 중복된 값을 제거해 계속 벡터의 값이 늘어나는 것을 방지
+				if ((vecMPos.back().x == vecMPos[(vecMPos.size() - 2)].x)
+					&& (vecMPos.back().y == vecMPos[(vecMPos.size() - 2)].y)) // 중복된 값을 제거해 계속 벡터의 값이 늘어나는 것을 방지
 				{
-					vecMPos.push_back(g_ptMouse);
+					vecMPos.erase(vecMPos.end()-1);
 				}
 			}
 
@@ -76,7 +77,6 @@ void Draw::Update()
 
 	if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
 	{
-		vecDraw.push_back(nowDrawing);
 		state = nowState;
 	
 		// 마우스를 떼면 초기화 시킨다
@@ -84,6 +84,9 @@ void Draw::Update()
 		vecDecidedPos.clear();
 		vecDraw.clear();
 		f_Angle = 1000;
+
+		isKeyUp = true;
+		isKeyDown = false;
 	}
 
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
@@ -138,7 +141,7 @@ void Draw::Render()
 					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.8, 0.5, 1.0);
 				}
 				break;
-			case lightning:
+			case Lightning:
 				for (int i = 0; i < vecMPos.size() - 1; i++)
 				{
 					d2d->DrawLine(vecMPos[i], vecMPos[i + 1], 20.0f, 1.0, 0.8, 0.3, 1.0);
@@ -164,7 +167,7 @@ void Draw::Render()
 
 		float angle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
 		char text[126] = { '0' };
-		sprintf_s(text, "%d", nowDrawing);
+		sprintf_s(text, "%f", angle);
 
 		WCHAR szText[126] = { '0' };
 
@@ -261,12 +264,12 @@ State Draw::WhatShape()
 		if (((vecDraw[0] == RightUp) && (vecDraw[1] == LeftUp) && (nowDrawing == RightUp))
 			|| ((vecDraw[0] == LeftUp) && (vecDraw[1] == RightUp) && (nowDrawing == LeftUp)))
 		{
-			return State::lightning;
+			return State::Lightning;
 		}
 		else if (((vecDraw[0] == RightDown) && (vecDraw[1] == LeftDown) && (nowDrawing == RightDown))
 			|| ((vecDraw[0] == LeftDown) && (vecDraw[1] == RightDown) && (nowDrawing == LeftDown)))
 		{
-			return State::lightning;
+			return State::Lightning;
 		}
 		else
 		{

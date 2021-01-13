@@ -20,6 +20,9 @@ private:
 
 	vector<Drawing> vecDraw;
 	Drawing nowDrawing;
+	
+	bool isKeyUp;
+	bool isKeyDown;
 
 public:
 	virtual HRESULT Init();
@@ -33,5 +36,7 @@ public:
 	State GetState() { return state; }
 
 	float AnglefromPoints(POINT pos1, POINT pos2);
+	bool GetIsKeyUp() { return isKeyUp; }
+	bool GetIsKeyDown() { return isKeyDown; }
 };
 
