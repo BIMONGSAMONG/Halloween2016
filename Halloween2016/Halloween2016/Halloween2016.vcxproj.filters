@@ -37,6 +37,12 @@
     <Filter Include="MainGame\GameObject">
       <UniqueIdentifier>{8fec3e39-e3cc-419a-9a41-ebe76b0d6f6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\GameObject\Player">
+      <UniqueIdentifier>{8ba0c63c-8b5a-47db-8239-9af65e9575d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\GameObject\Ghost">
+      <UniqueIdentifier>{7399d6ca-ae4b-4a9b-84cd-dfb6609356b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,14 +81,17 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>MainGame\GameObject</Filter>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>MainGame\GameObject\Ghost</Filter>
     </ClCompile>
     <ClCompile Include="Draw.cpp">
-      <Filter>MainGame\GameObject</Filter>
+      <Filter>MainGame\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Ghost.cpp">
-      <Filter>MainGame\GameObject</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>MainGame\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostManager.cpp">
+      <Filter>MainGame\GameObject\Ghost</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,14 +134,17 @@
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>MainGame\GameObject</Filter>
+    <ClInclude Include="Ghost.h">
+      <Filter>MainGame\GameObject\Ghost</Filter>
     </ClInclude>
     <ClInclude Include="Draw.h">
-      <Filter>MainGame\GameObject</Filter>
+      <Filter>MainGame\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Ghost.h">
-      <Filter>MainGame\GameObject</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>MainGame\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostManager.h">
+      <Filter>MainGame\GameObject\Ghost</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

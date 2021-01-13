@@ -6,7 +6,7 @@ class Player : public GameNode
 {
 private:
 	// 캐릭터
-	D2D_POINT_2F pos;
+	POINT pos;
 	int size;
 
 	// 마우스 그리기
@@ -23,7 +23,7 @@ private:
 	SpriteSheet* downThorn;
 	SpriteSheet* lightning;
 	SpriteSheet* heart;
-
+	SpriteSheet* damaged;
 	float timer;
 	int frame;
 	float aniTimer;
@@ -39,5 +39,7 @@ public:
 
 	State GetState() { return state; }
 	void SetState(State state) { this->state = state; }
+	POINT GetPos() { return pos; }
+	int GetSize() { return size; }
 };
 

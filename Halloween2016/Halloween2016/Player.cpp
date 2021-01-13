@@ -4,7 +4,7 @@
 HRESULT Player::Init()
 {
 	pos = { WINSIZE_X / 2, WINSIZE_Y / 2 + 100 };
-	size = 0;
+	size = 100;
 
 	m_prev_pos = { 0, 0 };
 	m_isClicked = 0;
@@ -19,6 +19,7 @@ HRESULT Player::Init()
 	downThorn = new SpriteSheet(L"Image/Momo/DownThorn.png", d2d, 324, 262);
 	lightning = new SpriteSheet(L"Image/Momo/Lightning.png", d2d, 324, 262);
 	heart = new SpriteSheet(L"Image/Momo/Heart.png", d2d, 342, 244);
+	damaged = new SpriteSheet(L"Image/Momo/Damaged.png", d2d, 276, 236);
 
 	timer = 0.0f;
 	frame = 0;
@@ -139,6 +140,19 @@ void Player::Update()
 				aniTimer = 0;
 			}
 			break;
+		case Damaged:
+			aniTimer += TimerManager::GetSingleton()->GetElapsedTime();
+			if (aniTimer >= 0.005)
+			{
+				aniFrame++;
+				if (aniFrame >= 4)
+				{
+					state = State::idle;
+					aniFrame = 0;
+				}
+				aniTimer = 0;
+			}
+			break;
 		default:
 			break;
 		}
@@ -175,10 +189,14 @@ void Player::Render()
 	case Heart:
 		heart->Draw(aniFrame, pos.x, pos.y);
 		break;
+	case Damaged:
+		damaged->Draw(aniFrame, pos.x, pos.y);
+		break;
 	default:
 		break;
 	}
 	
+	d2d->DrawRect(pos, size, 1.0, 0.0, 0.0, 1.0);
 }
 
 void Player::Drawing()

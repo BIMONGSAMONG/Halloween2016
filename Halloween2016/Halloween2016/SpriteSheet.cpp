@@ -79,7 +79,7 @@ void SpriteSheet::Draw(float x, float y)
 	);
 }
 
-void SpriteSheet::Draw(int index, float x, float y)
+void SpriteSheet::Draw(int index, float x, float y, float a)
 {
 	D2D_RECT_F src = RectF(
 		(float)((index % spriteAccross) * spriteWidth),
@@ -94,7 +94,7 @@ void SpriteSheet::Draw(int index, float x, float y)
 	d2d->GetRenderTarget()->DrawBitmap(
 		bmp,
 		dest, // 프린트
-		1.0f, // 오퍼시티
+		a, // 오퍼시티
 		D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
 		src // 소스
 	);

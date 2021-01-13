@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <time.h>
 #include <d2d1.h>
 #include <wincodec.h>
 #include <dwrite.h>
@@ -69,7 +70,10 @@ enum State {
 	UpThorn,			// 위로 뿔
 	DownThorn,		// 아래로 뿔
 	Lightning,	// 번개
-	Heart		// 하트
+	Heart,		// 하트
+	Damaged,
+	Attack,
+	Dead
 };
 
 enum Drawing {

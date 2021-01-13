@@ -86,6 +86,19 @@ void D2DRender::DrawLine(POINT prevPos, POINT currPos, float size, float r, floa
 		size);
 }
 
+void D2DRender::DrawRect(POINT pos, int size, float r, float g, float b, float a)
+{
+	brush->SetColor(ColorF(r, g, b, a));
+	D2D1_RECT_F rc = RectF(
+		pos.x - (size / 2),
+		pos.y - size ,
+		pos.x + (size / 2),
+		pos.y
+	);
+
+	renderTarget->DrawRectangle(&rc, brush);
+}
+
 void D2DRender::WriteText(WCHAR * str, RECT rc, float r, float g, float b, float a)
 {
 	brush->SetColor(ColorF(r, g, b, a));

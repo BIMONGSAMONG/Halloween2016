@@ -169,7 +169,7 @@ void Draw::Render()
 		
 		d2d->DrawLine(vecDecidedPos.back(), g_ptMouse, 1.0f, 1.0, 0.0, 0.0, 1.0);*/
 
-		float angle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
+		/*float angle = AnglefromPoints(vecDecidedPos.back(), g_ptMouse);
 		char text[126] = { '0' };
 		sprintf_s(text, "%f", angle);
 
@@ -178,7 +178,7 @@ void Draw::Render()
 		MultiByteToWideChar(CP_ACP, 0, text, -1, szText, 126);
 
 		RECT rc = { g_ptMouse.x, g_ptMouse.y, g_ptMouse.x + 50, g_ptMouse.y };
-		d2d->WriteText(szText, rc, 0.0, 0.0, 0.0, 1.0);
+		d2d->WriteText(szText, rc, 0.0, 0.0, 0.0, 1.0);*/
 	}
 	else if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
 	{

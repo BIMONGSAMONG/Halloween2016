@@ -4,11 +4,14 @@
 class SpriteSheet;
 class Player;
 class Draw;
+class Ghost;
 class Stage1 : public GameNode
 {
 private:
 	Player* player;
 	Draw* draw;
+	Ghost* ghost;
+
 	SpriteSheet* background;
 
 public:
@@ -16,5 +19,7 @@ public:
 	virtual void Release();
 	virtual void Update();
 	virtual void Render();
+
+	bool RectToRect(POINT pos1, int size1, POINT pos2, int size2);
 };
 
