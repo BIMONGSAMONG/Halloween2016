@@ -3,12 +3,11 @@
 
 HRESULT Ghost::Init()
 {
-	pos = {0, WINSIZE_Y};
+	pos = {0,0};
 	size = 87;
 	alpha = 0.0f;
 
-	speed = 5.0f;
-	goalTime = 5.0f;
+	speed = 2.0f;
 
 	angle = 0.0f;
 	destAngle = 0.0f;
@@ -159,11 +158,11 @@ void Ghost::Render()
 }
 
 void Ghost::GoPlayer()
-{	
-	destAngle = atan2(pos.y - (WINSIZE_Y),
-		pos.x - (WINSIZE_X));
+{
+	destAngle = RadianToDegree(atan2(((WINSIZE_Y / 2 + 100) - pos.y),
+		((WINSIZE_X / 2) - pos.x)));
 
-	pos.x += cosf(RadianToDegree(destAngle)) * speed * TimerManager::GetSingleton()->GetElapsedTime() * goalTime;
-	pos.y -= sinf(RadianToDegree(destAngle)) * speed * TimerManager::GetSingleton()->GetElapsedTime() * goalTime;
+	pos.x += cosf(DegreeToRadian(destAngle)) * speed;
+	pos.y += sinf(DegreeToRadian(destAngle)) * speed;
 }
 
