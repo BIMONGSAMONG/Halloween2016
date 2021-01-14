@@ -155,7 +155,7 @@ void GhostManager::Update()
 		}
 	}
 	
-	if ((cycleCount % 3 == 0) && cycleCount != 0)
+	if ((cycleCount % 3 == 0) /*&& cycleCount != 0*/)
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
@@ -199,7 +199,7 @@ void GhostManager::Render()
 	{
 		(*itGhosts)->Render();
 	}
-	if ((cycleCount % 3 == 0) && cycleCount != 0)
+	if ((cycleCount % 3 == 0) /*&& cycleCount != 0*/)
 	{
 		for (itGhosts = uniqueGhosts.begin(); itGhosts != uniqueGhosts.end(); itGhosts++)
 		{

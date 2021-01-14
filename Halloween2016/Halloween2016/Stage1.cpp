@@ -109,7 +109,7 @@ void Stage1::Update()
 				if (uniGhosts[i]->GetState() != State::Dead)
 				{
 					if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
-						&& (draw->GetState() == State::Lightning ))
+						&& (draw->GetState() == State::Lightning))
 					{
 						for (int j = 0; j < vecGhosts.size(); j++)
 						{
@@ -181,9 +181,13 @@ void Stage1::Update()
 	{
 		SceneManager::GetSingleton()->ChangeScene("게임오버");
 	}
-	if (player->GetIsClear())
+	else if (player->GetIsClear())
 	{
 		SceneManager::GetSingleton()->ChangeScene("클리어");
+	}
+	else
+	{
+
 	}
 	
 }
