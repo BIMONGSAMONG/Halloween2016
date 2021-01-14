@@ -1,5 +1,8 @@
 #include "MainGame.h"
 #include "Stage1.h"
+#include "OpeningScene.h"
+#include "GameOverScene.h"
+#include "ClearScene.h"
 
 HRESULT MainGame::Init()
 {
@@ -8,10 +11,10 @@ HRESULT MainGame::Init()
 	SceneManager::GetSingleton()->Init();
 
 	SceneManager::GetSingleton()->AddScene("1", new Stage1());
-	SceneManager::GetSingleton()->ChangeScene("1");
-
-	stage1 = new Stage1();
-	stage1->Init();
+	SceneManager::GetSingleton()->AddScene("오프닝", new OpeningScene());
+	SceneManager::GetSingleton()->AddScene("게임오버", new GameOverScene());
+	SceneManager::GetSingleton()->AddScene("클리어", new ClearScene());
+	SceneManager::GetSingleton()->ChangeScene("오프닝");
 
 	hdc = GetDC(g_hWnd);
 
@@ -27,24 +30,19 @@ void MainGame::Release()
 	KeyManager::GetSingleton()->Release();
 	SceneManager::GetSingleton()->Release();
 
-	//SAFE_RELEASE(stage1);
-
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update()
 {
 	SceneManager::GetSingleton()->Update();
-	//stage1->Update();
-	InvalidateRect(g_hWnd, NULL, false);
+	//InvalidateRect(g_hWnd, NULL, false);
 }
 
 void MainGame::Render()
 {
 	SceneManager::GetSingleton()->Render();
 	TimerManager::GetSingleton()->Render(hdc);
-
-	//stage1->Render();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

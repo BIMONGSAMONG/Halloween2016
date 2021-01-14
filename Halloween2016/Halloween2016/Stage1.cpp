@@ -81,6 +81,7 @@ void Stage1::Update()
 	
 
 	vector<Ghost*> vecGhosts = ghostMgr->GetVecGhosts();
+	vector<Ghost*> uniGhosts = ghostMgr->GetUniGhosts();
 
 	if (draw->GetIsKeyUp())
 	{
@@ -99,6 +100,37 @@ void Stage1::Update()
 					if (draw->GetState() - 2 == vecGhosts[i]->GetPattern().front())
 					{
 						vecGhosts[i]->SetState(State::Damaged);
+					}
+				}
+			}
+
+			for (int i = 0; i < uniGhosts.size(); i++)
+			{
+				if (uniGhosts[i]->GetState() != State::Dead)
+				{
+					if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
+						&& (draw->GetState() == State::Lightning ))
+					{
+						for (int j = 0; j < vecGhosts.size(); j++)
+						{
+							vecGhosts[j]->SetState(State::Dead);
+						}
+						uniGhosts[i]->SetState(State::Dead);
+
+					}
+					else if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
+						&& (draw->GetState() == State::Heart))
+					{
+						uniGhosts[i]->SetState(State::Dead);
+						
+						if (player->GetHp() >= 5)
+						{
+
+						}
+						else
+						{
+							player->SetHp(player->GetHp() + 1);
+						}
 					}
 				}
 			}
@@ -127,11 +159,31 @@ void Stage1::Update()
 			}
 		}
 	}
+	for (int i = 0; i < uniGhosts.size(); i++)
+	{
+		if (uniGhosts[i]->GetState() != State::Dead)
+		{
+			if (RectToRect(player->GetPos(), player->GetSize(), uniGhosts[i]->GetPos(), uniGhosts[i]->GetSize())
+				&& uniGhosts[i]->GetState() != State::Attack && player->GetState() != State::Dead)
+			{
+				uniGhosts[i]->SetState(State::Attack);
+				player->SetState(State::Damaged);
+			}
+		}
+	}
 	
 	
 	if (ghostMgr->GetIsClear())
 	{
 		player->SetState(State::Clear);
+	}
+	if (player->GetIsGameOver())
+	{
+		SceneManager::GetSingleton()->ChangeScene("게임오버");
+	}
+	if (player->GetIsClear())
+	{
+		SceneManager::GetSingleton()->ChangeScene("클리어");
 	}
 	
 }

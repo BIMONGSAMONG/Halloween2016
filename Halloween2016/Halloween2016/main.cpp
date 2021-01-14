@@ -80,7 +80,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
 			g_mainGame.Update();
 			
 			d2dRender->BeginDraw();
-			d2dRender->ClearScreen(0.0f, 0.0f, 0.5f);
+			d2dRender->ClearScreen(1.0f, 1.0f, 1.0f);
 			g_mainGame.Render();
 			d2dRender->EndDraw();
 			

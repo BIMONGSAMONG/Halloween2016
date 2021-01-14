@@ -1,8 +1,6 @@
 #pragma once
 
 #include "GameNode.h"
-
-class Stage1;
 class MainGame :public GameNode
 {
 private:
@@ -15,8 +13,6 @@ private:
 	HDC hdc;
 	MOUSE_DATA mouseData;
 	bool isInit;
-
-	Stage1* stage1;
 
 public:
 	HRESULT Init();				// 멤버 변수 초기화, 메모리 할당

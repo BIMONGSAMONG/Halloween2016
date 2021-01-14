@@ -93,6 +93,15 @@
     <ClCompile Include="GhostManager.cpp">
       <Filter>MainGame\GameObject\Ghost</Filter>
     </ClCompile>
+    <ClCompile Include="OpeningScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -145,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="GhostManager.h">
       <Filter>MainGame\GameObject\Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="OpeningScene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearScene.h">
+      <Filter>MainGame\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -31,8 +31,10 @@ HRESULT GhostManager::Init()
 	{
 		indexNum.push_back(i);
 	}
+
 	srand(time(NULL));
-	for (int i = 1; i < 3; i++)
+
+	for (int i = 1; i < 20; i++)
 	{
 		spawnNum[i] = rand() % 6 + 1;
 	}
@@ -40,6 +42,22 @@ HRESULT GhostManager::Init()
 	patternSize = 0;
 
 	isClear = false;
+
+	uniqueGhosts.reserve(1);
+	uniqueGhosts.push_back(new Ghost());
+	uniqueGhosts[0]->Init();
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i < 2) // 하트
+		{
+			uniSpawn[i] = { (WINSIZE_X * i) + 150 - (i * 300), WINSIZE_Y / 2 };
+		}
+		else // 번개
+		{
+			uniSpawn[i] = {WINSIZE_X / 2 - 100 +((i-2) * 200), WINSIZE_Y};
+		}
+	}
 
 	return S_OK;
 }
@@ -53,6 +71,7 @@ void GhostManager::Release()
 	}
 	vecGhosts.clear();
 	indexNum.clear();
+	uniqueGhosts.clear();
 }
 
 void GhostManager::Update()
@@ -98,7 +117,7 @@ void GhostManager::Update()
 		}
 	}
 
-	if (cycleCount < 3)
+	if (cycleCount < 20)
 	{
 		checkDead = 0;
 		for (int l = 0; l < vecGhosts.size(); l++)
@@ -136,6 +155,40 @@ void GhostManager::Update()
 		}
 	}
 	
+	if ((cycleCount % 3 == 0) && cycleCount != 0)
+	{
+		for (int i = 0; i < uniqueGhosts.size(); i++)
+		{
+			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0))
+			{
+				int randNum = rand() % 2 + 4;
+				uniqueGhosts[i]->SetPattern(randNum);
+				uniqueGhosts[i]->SetTempSize(uniqueGhosts[i]->GetPattern().size());
+				
+				if (randNum == 4)
+				{
+					uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2 + 2]);
+					uniqueGhosts[i]->SetIsCat(false);
+				}
+				else
+				{
+					uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2]);
+					uniqueGhosts[i]->SetIsCat(true);
+				}
+			}
+
+			uniqueGhosts[i]->Update();
+		}
+	}
+	else
+	{
+		for (int i = 0; i < uniqueGhosts.size(); i++)
+		{
+			uniqueGhosts[i]->SetState(State::Dead);
+			uniqueGhosts[i]->GetPattern().clear();
+			uniqueGhosts[i]->SetState(State::idle);
+		}
+	}
 	
 }
 
@@ -145,5 +198,12 @@ void GhostManager::Render()
 	for (itGhosts = vecGhosts.begin(); itGhosts != vecGhosts.end(); itGhosts++)
 	{
 		(*itGhosts)->Render();
+	}
+	if ((cycleCount % 3 == 0) && cycleCount != 0)
+	{
+		for (itGhosts = uniqueGhosts.begin(); itGhosts != uniqueGhosts.end(); itGhosts++)
+		{
+			(*itGhosts)->Render();
+		}
 	}
 }

@@ -31,6 +31,9 @@ HRESULT Player::Init()
 
 	hp = 5;
 
+	isGameOver = false;
+	isClear = false;
+
 	return S_OK;
 }
 
@@ -176,6 +179,7 @@ void Player::Update()
 				if (aniFrame >= 16)
 				{
 					aniFrame = 16;
+					isGameOver = true;
 				}
 				aniTimer = 0;
 			}
@@ -188,6 +192,7 @@ void Player::Update()
 				if (aniFrame >= 19)
 				{
 					aniFrame = 19;
+					isClear = true;
 				}
 				aniTimer = 0;
 			}

@@ -10,7 +10,7 @@ private:
 
 	int cycleCount;
 	int tempCycleCount;
-	int spawnNum[3];
+	int spawnNum[20];
 	int patternSize;
 	POINT spawn[6];
 
@@ -18,6 +18,9 @@ private:
 	int checkDead;
 
 	bool isClear;
+
+	vector<Ghost*> uniqueGhosts;
+	POINT uniSpawn[4];
 
 public:
 	virtual HRESULT Init();
@@ -27,5 +30,7 @@ public:
 
 	vector<Ghost*> GetVecGhosts() { return vecGhosts; }
 	bool GetIsClear() { return isClear; }
+
+	vector<Ghost*> GetUniGhosts() { return uniqueGhosts; }
 };
 

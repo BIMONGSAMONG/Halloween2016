@@ -27,8 +27,8 @@ HRESULT Ghost::Init()
 	dead = new SpriteSheet(L"Image/Ghost/Dead.png", d2d, 232, 208);
 
 	isCat = false;
-	cat_idle = new SpriteSheet(L"Image/Ghost/CatGhost.png", d2d, 146, 146);
-	cat_dead = new SpriteSheet(L"Image/Ghost/CatDead.png", d2d, 146, 146);
+	cat_idle = new SpriteSheet(L"Image/Ghost/CatGhost.png", d2d, 164, 164);
+	cat_dead = new SpriteSheet(L"Image/Ghost/CatDead.png", d2d, 164, 164);
 
 	patternArr = new SpriteSheet(L"Image/Ghost/Pattern.png", d2d, 43, 36);
 	

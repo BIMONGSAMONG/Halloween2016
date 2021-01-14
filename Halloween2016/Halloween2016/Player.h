@@ -34,6 +34,9 @@ private:
 	float aniTimer;
 	int aniFrame;
 
+	bool isGameOver;
+	bool isClear;
+
 public:
 	virtual HRESULT Init();
 	virtual void Release();
@@ -47,5 +50,8 @@ public:
 
 	int GetHp() { return hp; }
 	void SetHp(int hp) { this->hp = hp; }
+
+	bool GetIsGameOver() { return isGameOver; }
+	bool GetIsClear() { return isClear; }
 };
 

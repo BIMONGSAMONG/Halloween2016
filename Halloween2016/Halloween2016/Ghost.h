@@ -58,5 +58,8 @@ public:
 	float GetAlpha() { return alpha; }
 
 	void SetTempSize(int size) { tempSize = size; }
+
+	bool GetIsCat() { return isCat; }
+	void SetIsCat(bool isCat) { this->isCat = isCat; }
 };
 
