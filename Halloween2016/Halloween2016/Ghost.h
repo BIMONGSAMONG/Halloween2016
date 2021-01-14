@@ -28,6 +28,10 @@ private:
 	SpriteSheet* attack;
 	SpriteSheet* damaged;
 	SpriteSheet* dead;
+	
+	bool isCat;
+	SpriteSheet* cat_idle;
+	SpriteSheet* cat_dead;
 
 	SpriteSheet* patternArr;
 

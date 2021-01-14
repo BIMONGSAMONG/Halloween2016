@@ -31,13 +31,15 @@ HRESULT GhostManager::Init()
 	{
 		indexNum.push_back(i);
 	}
-
+	srand(time(NULL));
 	for (int i = 1; i < 3; i++)
 	{
 		spawnNum[i] = rand() % 6 + 1;
 	}
 	
 	patternSize = 0;
+
+	isClear = false;
 
 	return S_OK;
 }
@@ -71,7 +73,7 @@ void GhostManager::Update()
 					vecGhosts[i]->SetPattern(rand() % 4);
 				}
 			}
-			vecGhosts[i]->SetTempSize(patternSize);
+			vecGhosts[i]->SetTempSize(vecGhosts[i]->GetPattern().size());
 			vecGhosts[i]->SetPos(spawn[i]);
 
 		}
@@ -115,6 +117,22 @@ void GhostManager::Update()
 					tempCycleCount = cycleCount;
 				}
 			}			
+		}
+	}
+	else
+	{
+		checkDead = 0;
+		for (int l = 0; l < vecGhosts.size(); l++)
+		{
+			if (vecGhosts[l]->GetState() == State::Dead)
+			{
+				checkDead++;
+
+				if (checkDead == vecGhosts.size())
+				{
+					isClear = true;
+				}
+			}
 		}
 	}
 	

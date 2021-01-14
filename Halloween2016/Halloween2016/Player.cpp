@@ -20,12 +20,17 @@ HRESULT Player::Init()
 	lightning = new SpriteSheet(L"Image/Momo/Lightning.png", d2d, 324, 262);
 	heart = new SpriteSheet(L"Image/Momo/Heart.png", d2d, 342, 244);
 	damaged = new SpriteSheet(L"Image/Momo/Damaged.png", d2d, 276, 236);
+	dead = new SpriteSheet(L"Image/Momo/Dead.png", d2d, 342, 262);
+	clear = new SpriteSheet(L"Image/Momo/Clear.png", d2d, 400, 400);
 
 	timer = 0.0f;
 	frame = 0;
 
 	aniTimer = 0.0f;
 	aniFrame = 0;
+
+	hp = 5;
+
 	return S_OK;
 }
 
@@ -39,10 +44,19 @@ void Player::Release()
 	SAFE_DELETE(downThorn);
 	SAFE_DELETE(lightning);
 	SAFE_DELETE(heart);
+	SAFE_DELETE(dead);
+	SAFE_DELETE(clear);
 }
 
 void Player::Update()
 {
+	if (hp == 0
+		|| ((state == State::Damaged) && (hp == 1)))
+	{
+		hp = 0;
+		state = State::Dead;
+	}
+
 	timer += TimerManager::GetSingleton()->GetElapsedTime();
 	if (timer >= 0.07)
 	{
@@ -147,11 +161,37 @@ void Player::Update()
 				aniFrame++;
 				if (aniFrame >= 4)
 				{
+					hp--;
 					state = State::idle;
 					aniFrame = 0;
 				}
 				aniTimer = 0;
 			}
+			break;
+		case Dead:
+			aniTimer += TimerManager::GetSingleton()->GetElapsedTime();
+			if (aniTimer >= 0.008)
+			{
+				aniFrame++;
+				if (aniFrame >= 16)
+				{
+					aniFrame = 16;
+				}
+				aniTimer = 0;
+			}
+			break;
+		case Clear:
+			aniTimer += TimerManager::GetSingleton()->GetElapsedTime();
+			if (aniTimer >= 0.008)
+			{
+				aniFrame++;
+				if (aniFrame >= 19)
+				{
+					aniFrame = 19;
+				}
+				aniTimer = 0;
+			}
+			break;
 			break;
 		default:
 			break;
@@ -192,16 +232,17 @@ void Player::Render()
 	case Damaged:
 		damaged->Draw(aniFrame, pos.x, pos.y);
 		break;
+	case Dead:
+		dead->Draw(aniFrame, pos.x, pos.y);
+		break;
+	case Clear:
+		clear->Draw(aniFrame, pos.x, pos.y);
+		break;
 	default:
 		break;
 	}
 	
 	//d2d->DrawRect(pos, size, 1.0, 0.0, 0.0, 1.0);
-}
-
-void Player::Drawing()
-{
-	
 }
 
 

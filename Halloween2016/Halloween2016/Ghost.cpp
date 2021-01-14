@@ -26,6 +26,10 @@ HRESULT Ghost::Init()
 	damaged = new SpriteSheet(L"Image/Ghost/Damaged.png", d2d, 248, 224);
 	dead = new SpriteSheet(L"Image/Ghost/Dead.png", d2d, 232, 208);
 
+	isCat = false;
+	cat_idle = new SpriteSheet(L"Image/Ghost/CatGhost.png", d2d, 146, 146);
+	cat_dead = new SpriteSheet(L"Image/Ghost/CatDead.png", d2d, 146, 146);
+
 	patternArr = new SpriteSheet(L"Image/Ghost/Pattern.png", d2d, 43, 36);
 	
 	return S_OK;
@@ -83,7 +87,10 @@ void Ghost::Update()
 		{
 			alpha += 0.01f;
 		}
-		GoPlayer();
+		if (!isCat)
+		{
+			GoPlayer();
+		}
 	}
 
 	timer += TimerManager::GetSingleton()->GetElapsedTime();
@@ -91,6 +98,16 @@ void Ghost::Update()
 	{
 		switch (state)
 		{
+		case State::idle:
+			if (isCat)
+			{
+				frame++;
+				if (frame >= 4)
+				{
+					frame = 0;
+				}
+			}
+			break;
 		case Attack:
 			frame++;
 			if (frame >= 4)
@@ -108,11 +125,23 @@ void Ghost::Update()
 			}
 			break;
 		case Dead:
-			frame++;
-			if (frame >= 8)
+			if (isCat)
 			{
-				frame = 0;
-				pos = { 0, 0 };
+				frame++;
+				if (frame >= 9)
+				{
+					frame = 0;
+					pos = { 0, 0 };
+				}
+			}
+			else
+			{
+				frame++;
+				if (frame >= 8)
+				{
+					frame = 0;
+					pos = { 0, 0 };
+				}
 			}
 			break;
 		default:
@@ -129,7 +158,14 @@ void Ghost::Render()
 	switch (state)
 	{
 	case State::idle:
-		idle->Draw(0, pos.x, pos.y, alpha);
+		if (isCat)
+		{
+			cat_idle->Draw(frame, pos.x, pos.y, alpha);
+		}
+		else
+		{
+			idle->Draw(0, pos.x, pos.y, alpha);
+		}
 		break;
 	case Lightning:
 		break;
@@ -142,7 +178,14 @@ void Ghost::Render()
 		attack->Draw(frame, pos.x, pos.y, alpha);
 		break;
 	case Dead:
-		dead->Draw(frame, pos.x, pos.y, alpha);
+		if (isCat)
+		{
+			cat_dead->Draw(frame, pos.x, pos.y, alpha);
+		}
+		else
+		{
+			dead->Draw(frame, pos.x, pos.y, alpha);
+		}
 		break;
 	default:
 		break;

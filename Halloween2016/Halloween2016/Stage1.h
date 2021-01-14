@@ -8,6 +8,7 @@ class Ghost;
 class GhostManager;
 class Stage1 : public GameNode
 {
+
 private:
 	Player* player;
 	Draw* draw;
@@ -16,7 +17,16 @@ private:
 
 	SpriteSheet* background;
 
+	SpriteSheet* hp_idle;
+	SpriteSheet* hp_empty;
+	SpriteSheet* hp_full;
+
 	float timer;
+	int frame;
+
+	float aniTimer;
+	int aniFrame;
+	
 
 public:
 	virtual HRESULT Init();

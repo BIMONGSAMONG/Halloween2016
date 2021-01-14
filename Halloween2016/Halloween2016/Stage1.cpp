@@ -17,6 +17,14 @@ HRESULT Stage1::Init()
 	ghostMgr->Init();
 
 	timer = 0.0f;
+	frame = 0;
+
+	hp_idle = new SpriteSheet(L"Image/Heart_Idle.png", d2d, 86, 80);
+	hp_empty = new SpriteSheet(L"Image/Heart_lose.png", d2d, 86, 80);
+	hp_full = new SpriteSheet(L"Image/Heart_full.png", d2d, 98, 94);
+
+	aniTimer = 0.0f;
+	aniFrame = 0;
 
 	background = new SpriteSheet(L"Image/Map/1.png", d2d);
 	return S_OK;
@@ -33,12 +41,16 @@ void Stage1::Release()
 	SAFE_RELEASE(ghostMgr);
 	SAFE_DELETE(ghostMgr);
 	
+	SAFE_DELETE(hp_idle);
+	SAFE_DELETE(hp_empty);
+	SAFE_DELETE(hp_full);
 	SAFE_DELETE(background);
 }
 
 void Stage1::Update()
 {
 	timer += TimerManager::GetSingleton()->GetElapsedTime();
+	aniTimer += TimerManager::GetSingleton()->GetElapsedTime();
 
 	player->Update();
 	draw->Update();
@@ -46,6 +58,25 @@ void Stage1::Update()
 	if (timer > 1.5f)
 	{
 		ghostMgr->Update();
+	}
+	if (timer > 2.0f)
+	{
+		frame++;
+		if (frame > 1)
+		{
+			frame = 0;
+		}
+		timer = 1.5f;
+	}
+
+	if (aniTimer >= 0.07f)
+	{
+		aniFrame++;
+		if (aniFrame > 6)
+		{
+			aniFrame = 6;
+		}
+		aniTimer = 0.0f;
 	}
 	
 
@@ -89,7 +120,7 @@ void Stage1::Update()
 		if (vecGhosts[i]->GetState() != State::Dead)
 		{
 			if (RectToRect(player->GetPos(), player->GetSize(), vecGhosts[i]->GetPos(), vecGhosts[i]->GetSize())
-				&& vecGhosts[i]->GetState() != Attack)
+				&& vecGhosts[i]->GetState() != State::Attack && player->GetState() != State::Dead)
 			{
 				vecGhosts[i]->SetState(State::Attack);
 				player->SetState(State::Damaged);
@@ -98,7 +129,10 @@ void Stage1::Update()
 	}
 	
 	
-	
+	if (ghostMgr->GetIsClear())
+	{
+		player->SetState(State::Clear);
+	}
 	
 }
 
@@ -109,6 +143,22 @@ void Stage1::Render()
 	draw->Render();
 
 	ghostMgr->Render();
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (player->GetHp() > (i + 1))
+		{
+			hp_idle->Draw(1, 40 + (i * 90), 90 );
+		}
+		else if (player->GetHp() == (i + 1))
+		{
+			hp_idle->Draw(frame, 40 + (i * 90), 90 );
+		}
+		else
+		{
+			hp_empty->Draw(aniFrame, 40 + (i * 90), 90);
+		}
+	}
 }
 
 bool Stage1::RectToRect(POINT pos1, int size1, POINT pos2, int size2)

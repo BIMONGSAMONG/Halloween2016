@@ -17,6 +17,8 @@ private:
 	vector<int> indexNum;
 	int checkDead;
 
+	bool isClear;
+
 public:
 	virtual HRESULT Init();
 	virtual void Release();
@@ -24,6 +26,6 @@ public:
 	virtual void Render();
 
 	vector<Ghost*> GetVecGhosts() { return vecGhosts; }
-	//POINT *GetSpawn() { return spawn; }
+	bool GetIsClear() { return isClear; }
 };
 

@@ -73,7 +73,8 @@ enum State {
 	Heart,		// ÇÏÆ®
 	Damaged,
 	Attack,
-	Dead
+	Dead,
+	Clear
 };
 
 enum Drawing {

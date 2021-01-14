@@ -15,6 +15,8 @@ private:
 
 	State state;
 
+	int hp;
+
 	SpriteSheet* idle;
 	SpriteSheet* drawing;
 	SpriteSheet* width;
@@ -24,6 +26,9 @@ private:
 	SpriteSheet* lightning;
 	SpriteSheet* heart;
 	SpriteSheet* damaged;
+	SpriteSheet* dead;
+	SpriteSheet* clear;
+
 	float timer;
 	int frame;
 	float aniTimer;
@@ -35,11 +40,12 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	void Drawing();
-
 	State GetState() { return state; }
 	void SetState(State state) { this->state = state; }
 	POINT GetPos() { return pos; }
 	int GetSize() { return size; }
+
+	int GetHp() { return hp; }
+	void SetHp(int hp) { this->hp = hp; }
 };
 
