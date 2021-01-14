@@ -5,14 +5,18 @@ class SpriteSheet;
 class Player;
 class Draw;
 class Ghost;
+class GhostManager;
 class Stage1 : public GameNode
 {
 private:
 	Player* player;
 	Draw* draw;
-	Ghost* ghost;
+
+	GhostManager* ghostMgr;
 
 	SpriteSheet* background;
+
+	float timer;
 
 public:
 	virtual HRESULT Init();

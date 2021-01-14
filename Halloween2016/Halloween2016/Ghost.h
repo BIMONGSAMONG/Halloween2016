@@ -42,8 +42,17 @@ public:
 
 	State GetState() { return state; }
 	void SetState(State state) { this->state = state; }
+
 	POINT GetPos() { return pos; }
+	void SetPos(POINT pos) { this->pos = pos; }
+
 	int GetSize() { return size; }
+
 	vector<int> GetPattern() { return pattern; }
+	void SetPattern(int pattern) { this->pattern.push_back(pattern); }
+	
+	float GetAlpha() { return alpha; }
+
+	void SetTempSize(int size) { tempSize = size; }
 };
 

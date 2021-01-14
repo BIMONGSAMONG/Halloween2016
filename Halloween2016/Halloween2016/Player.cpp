@@ -4,7 +4,7 @@
 HRESULT Player::Init()
 {
 	pos = { WINSIZE_X / 2, WINSIZE_Y / 2 + 100 };
-	size = 100;
+	size = 150;
 
 	m_prev_pos = { 0, 0 };
 	m_isClicked = 0;
@@ -31,14 +31,14 @@ HRESULT Player::Init()
 
 void Player::Release()
 {
-	delete idle;
-	delete drawing;
-	delete width;
-	delete length;
-	delete upThorn;
-	delete downThorn;
-	delete lightning;
-	delete heart;
+	SAFE_DELETE(idle);
+	SAFE_DELETE(drawing);
+	SAFE_DELETE(width);
+	SAFE_DELETE(length);
+	SAFE_DELETE(upThorn);
+	SAFE_DELETE(downThorn);
+	SAFE_DELETE(lightning);
+	SAFE_DELETE(heart);
 }
 
 void Player::Update()
@@ -196,7 +196,7 @@ void Player::Render()
 		break;
 	}
 	
-	d2d->DrawRect(pos, size, 1.0, 0.0, 0.0, 1.0);
+	//d2d->DrawRect(pos, size, 1.0, 0.0, 0.0, 1.0);
 }
 
 void Player::Drawing()

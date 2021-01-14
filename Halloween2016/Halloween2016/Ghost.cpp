@@ -3,11 +3,12 @@
 
 HRESULT Ghost::Init()
 {
-	pos = {0,0};
+	pos = {100,100};
 	size = 87;
 	alpha = 0.0f;
 
-	speed = 2.0f;
+	speed = 2000.0;
+	goalTime = 20.0;
 
 	angle = 0.0f;
 	destAngle = 0.0f;
@@ -16,15 +17,9 @@ HRESULT Ghost::Init()
 	timer = 0.0f;
 	frame = 0;
 
-	pattern.reserve(8);
-	srand(time(NULL));
-	for (int i = 0; i < rand() % 7 + 1; i++)
-	{
-		pattern.push_back(rand() % 4);
-	}
-	
+	pattern.reserve(4);
 	state = State::idle;
-	tempSize = pattern.size();
+	tempSize = 0;
 
 	idle = new SpriteSheet(L"Image/Ghost/Ghost.png", d2d, 174, 184);
 	attack = new SpriteSheet(L"Image/Ghost/Attack.png", d2d, 174, 184);
@@ -40,13 +35,57 @@ void Ghost::Release()
 {
 	pattern.clear();
 
-	delete idle;
-	delete attack;
-	delete patternArr;
+	SAFE_DELETE(idle);
+	SAFE_DELETE(damaged);
+	SAFE_DELETE(attack);
+	SAFE_DELETE(patternArr);
 }
 
 void Ghost::Update()
 {
+
+	if (pattern.empty())
+	{
+		state = State::Dead;
+	}
+
+
+	if (state == State::Attack)
+	{
+		if (alpha > 0)
+		{
+			alpha -= 0.01f;
+		}
+		else if (alpha <= 0)
+		{
+			state = State::Dead;
+			pos = { 0, 0 };
+		}
+	}
+	if (state == State::Damaged)
+	{
+		if (!pattern.empty() && tempSize == pattern.size())
+		{
+			tempSize = pattern.size();
+			pattern.erase(pattern.begin());
+		}
+	}
+	if (state == State::Dead)
+	{
+		if (alpha > 0)
+		{
+			alpha -= 0.01f;
+		}
+	}
+	if (state == State::idle)
+	{
+		if (alpha <= 0.8f)
+		{
+			alpha += 0.01f;
+		}
+		GoPlayer();
+	}
+
 	timer += TimerManager::GetSingleton()->GetElapsedTime();
 	if (timer >= 0.07)
 	{
@@ -82,47 +121,7 @@ void Ghost::Update()
 		timer = 0;
 	}
 
-	if (pattern.empty())
-	{
-		state = State::Dead;
-	}
-
 	
-	if (state == State::Attack)
-	{
-		if (alpha > 0)
-		{
-			alpha -= 0.01f;
-		}
-		else if (alpha <= 0)
-		{
-			state = State::Dead;
-			pos = { 0, 0 };
-		}
-	}
-	if (state == State::Damaged)
-	{
-		if (!pattern.empty() && tempSize == pattern.size())
-		{	
-			tempSize = pattern.size();
-			pattern.erase(pattern.begin());
-		}
-	}
-	if (state == State::Dead)
-	{
-		if (alpha > 0)
-		{
-			alpha -= 0.01f;
-		}
-	}
-	if (state == State::idle)
-	{
-		if (alpha <= 0.8f)
-		{
-			alpha += 0.01f;
-		}
-		GoPlayer();
-	}
 }
 
 void Ghost::Render()
@@ -154,15 +153,23 @@ void Ghost::Render()
 		patternArr->Draw(pattern[i], (pos.x - ((pattern.size() - 1) * (43/2))) + (43 * i), pos.y - 180, alpha);
 	}
 	
-	d2d->DrawRect(pos, size, 0.0, 1.0, 0.0, 1.0);
+	//d2d->DrawRect(pos, size, 0.0, 1.0, 0.0, 1.0);
 }
 
 void Ghost::GoPlayer()
 {
-	destAngle = RadianToDegree(atan2(((WINSIZE_Y / 2 + 100) - pos.y),
-		((WINSIZE_X / 2) - pos.x)));
+	destAngle = atan2f(((WINSIZE_Y / 2 + 100) - pos.y), ((WINSIZE_X / 2) - pos.x));
 
-	pos.x += cosf(DegreeToRadian(destAngle)) * speed;
-	pos.y += sinf(DegreeToRadian(destAngle)) * speed;
+	if ((WINSIZE_X / 2) > pos.x)
+	{
+		
+	}
+	else
+	{
+		speed = 50;
+	}
+
+	pos.x += cosf(destAngle) * speed * TimerManager::GetSingleton()->GetElapsedTime() / goalTime;
+	pos.y += sinf(destAngle) * speed * TimerManager::GetSingleton()->GetElapsedTime() / goalTime;
 }
 

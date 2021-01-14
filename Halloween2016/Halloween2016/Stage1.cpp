@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Draw.h"
 #include "Ghost.h"
+#include "GhostManager.h"
 
 HRESULT Stage1::Init()
 {
@@ -12,8 +13,10 @@ HRESULT Stage1::Init()
 	draw = new Draw();
 	draw->Init();
 
-	ghost = new Ghost();
-	ghost->Init();
+	ghostMgr = new GhostManager();
+	ghostMgr->Init();
+
+	timer = 0.0f;
 
 	background = new SpriteSheet(L"Image/Map/1.png", d2d);
 	return S_OK;
@@ -21,17 +24,32 @@ HRESULT Stage1::Init()
 
 void Stage1::Release()
 {
-	delete player;
-	delete draw;
-	delete ghost;
-	delete background;
+	SAFE_RELEASE(player);
+	SAFE_DELETE(player);
+
+	SAFE_RELEASE(draw);
+	SAFE_DELETE(draw);
+
+	SAFE_RELEASE(ghostMgr);
+	SAFE_DELETE(ghostMgr);
+	
+	SAFE_DELETE(background);
 }
 
 void Stage1::Update()
 {
+	timer += TimerManager::GetSingleton()->GetElapsedTime();
+
 	player->Update();
 	draw->Update();
-	ghost->Update();
+
+	if (timer > 1.5f)
+	{
+		ghostMgr->Update();
+	}
+	
+
+	vector<Ghost*> vecGhosts = ghostMgr->GetVecGhosts();
 
 	if (draw->GetIsKeyUp())
 	{
@@ -42,10 +60,18 @@ void Stage1::Update()
 		else
 		{
 			player->SetState(draw->GetState());
-			if (draw->GetState() - 2 == ghost->GetPattern().front())
+
+			for (int i = 0; i < vecGhosts.size(); i++)
 			{
-				ghost->SetState(State::Damaged);
+				if (vecGhosts[i]->GetState() != State::Dead)
+				{
+					if (draw->GetState() - 2 == vecGhosts[i]->GetPattern().front())
+					{
+						vecGhosts[i]->SetState(State::Damaged);
+					}
+				}
 			}
+			
 		}
 		
 	}
@@ -58,12 +84,19 @@ void Stage1::Update()
 
 	}
 
-	if (RectToRect(player->GetPos(), player->GetSize(), ghost->GetPos(), ghost->GetSize())
-		&& ghost->GetState() != Attack)
+	for (int i = 0; i < vecGhosts.size(); i++)
 	{
-		ghost->SetState(State::Attack);
-		player->SetState(State::Damaged);
+		if (vecGhosts[i]->GetState() != State::Dead)
+		{
+			if (RectToRect(player->GetPos(), player->GetSize(), vecGhosts[i]->GetPos(), vecGhosts[i]->GetSize())
+				&& vecGhosts[i]->GetState() != Attack)
+			{
+				vecGhosts[i]->SetState(State::Attack);
+				player->SetState(State::Damaged);
+			}
+		}
 	}
+	
 	
 	
 	
@@ -74,7 +107,8 @@ void Stage1::Render()
 	background->Draw(WINSIZE_X, WINSIZE_Y);
 	player->Render();
 	draw->Render();
-	ghost->Render();
+
+	ghostMgr->Render();
 }
 
 bool Stage1::RectToRect(POINT pos1, int size1, POINT pos2, int size2)
