@@ -130,6 +130,7 @@ void GhostManager::Update()
 				{
 					for (int m = 0; m < vecGhosts.size(); m++)
 					{
+			
 						vecGhosts[m]->SetState(State::idle);
 					}
 					cycleCount++;
@@ -159,28 +160,32 @@ void GhostManager::Update()
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
-			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0))
+			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0)
+				/*&& (uniqueGhosts[i]->GetPattern().size() > 1)*/)
 			{
-				int randNum = rand() % 2 + 4;
-				uniqueGhosts[i]->SetPattern(randNum);
-				uniqueGhosts[i]->SetTempSize(uniqueGhosts[i]->GetPattern().size());
+
+					int randNum = rand() % 2 + 4;
+					uniqueGhosts[i]->SetPattern(randNum);
+					uniqueGhosts[i]->SetTempSize(uniqueGhosts[i]->GetPattern().size());
+
+					if (randNum == 4)
+					{
+						uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2 + 2]);
+						uniqueGhosts[i]->SetIsCat(false);
+					}
+					else
+					{
+						uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2]);
+						uniqueGhosts[i]->SetIsCat(true);
+					}
+
 				
-				if (randNum == 4)
-				{
-					uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2 + 2]);
-					uniqueGhosts[i]->SetIsCat(false);
-				}
-				else
-				{
-					uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2]);
-					uniqueGhosts[i]->SetIsCat(true);
-				}
 			}
 
 			uniqueGhosts[i]->Update();
 		}
 	}
-	else
+	else 
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
@@ -189,6 +194,7 @@ void GhostManager::Update()
 			uniqueGhosts[i]->SetState(State::idle);
 		}
 	}
+
 	
 }
 

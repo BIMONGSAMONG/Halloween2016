@@ -104,35 +104,40 @@ void Stage1::Update()
 				}
 			}
 
-			for (int i = 0; i < uniGhosts.size(); i++)
+			if (ghostMgr->GetCycleCount() % 3 == 0)
 			{
-				if (uniGhosts[i]->GetState() != State::Dead)
+				for (int i = 0; i < uniGhosts.size(); i++)
 				{
-					if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
-						&& (draw->GetState() == State::Lightning))
+					if (uniGhosts[i]->GetState() != State::Dead)
 					{
-						for (int j = 0; j < vecGhosts.size(); j++)
+						if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
+							&& (draw->GetState() == State::Lightning))
 						{
-							vecGhosts[j]->SetState(State::Dead);
-						}
-						uniGhosts[i]->SetState(State::Dead);
-
-					}
-					else if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
-						&& (draw->GetState() == State::Heart))
-					{
-						uniGhosts[i]->SetState(State::Dead);
-						
-						if (player->GetHp() >= 5)
-						{
+							for (int j = 0; j < vecGhosts.size(); j++)
+							{
+								vecGhosts[j]->SetState(State::Dead);
+							}
+							uniGhosts[i]->SetState(State::Damaged);
 
 						}
-						else
+						else if ((draw->GetState() - 2 == uniGhosts[i]->GetPattern().front())
+							&& (draw->GetState() == State::Heart))
 						{
-							player->SetHp(player->GetHp() + 1);
+							
+
+							if (player->GetHp() >= 5)
+							{
+
+							}
+							else
+							{
+								player->SetHp(player->GetHp() + 1);
+							}
+							uniGhosts[i]->SetState(State::Damaged);
 						}
 					}
-				}
+			}
+			
 			}
 			
 		}
