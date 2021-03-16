@@ -33,7 +33,5 @@ public:
 	bool GetIsClear() { return isClear; }
 
 	vector<Ghost*> GetUniGhosts() { return uniqueGhosts; }
-
-	int GetCycleCount() { return cycleCount; }
 };
 

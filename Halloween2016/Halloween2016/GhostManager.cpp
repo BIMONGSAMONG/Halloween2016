@@ -81,7 +81,6 @@ void GhostManager::Update()
 
 	for (int i = 0; i < vecGhosts.size(); i++)
 	{
-
 		if ((vecGhosts[i]->GetState() == State::idle) && (vecGhosts[i]->GetAlpha() <= 0))
 		{
 			patternSize = rand() % 3 + 1;
@@ -131,7 +130,6 @@ void GhostManager::Update()
 				{
 					for (int m = 0; m < vecGhosts.size(); m++)
 					{
-			
 						vecGhosts[m]->SetState(State::idle);
 					}
 					cycleCount++;
@@ -161,8 +159,7 @@ void GhostManager::Update()
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
-			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0)
-				/*&& (uniqueGhosts[i]->GetPattern().size() > 1)*/)
+			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0))
 			{
 					int randNum = rand() % 2 + 4;
 					uniqueGhosts[i]->SetPattern(randNum);
@@ -178,11 +175,12 @@ void GhostManager::Update()
 						uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2]);
 						uniqueGhosts[i]->SetIsCat(true);
 					}
+
 			}
 			uniqueGhosts[i]->Update();
 		}
 	}
-	else 
+	else
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
@@ -191,7 +189,6 @@ void GhostManager::Update()
 			uniqueGhosts[i]->SetState(State::idle);
 		}
 	}
-
 	
 
 }
