@@ -42,6 +42,7 @@ HRESULT GhostManager::Init()
 	patternSize = 0;
 
 	isClear = false;
+	isDeadOneCycle = false;
 
 	uniqueGhosts.reserve(1);
 	uniqueGhosts.push_back(new Ghost());
@@ -55,7 +56,7 @@ HRESULT GhostManager::Init()
 		}
 		else // ¹ø°³
 		{
-			uniSpawn[i] = {WINSIZE_X / 2 - 100 +((i-2) * 200), WINSIZE_Y};
+			uniSpawn[i] = {WINSIZE_X / 2 - 100 +((i-2) * 200), WINSIZE_Y + 200};
 		}
 	}
 
@@ -163,7 +164,6 @@ void GhostManager::Update()
 			if ((uniqueGhosts[i]->GetState() == State::idle) && (uniqueGhosts[i]->GetAlpha() <= 0)
 				/*&& (uniqueGhosts[i]->GetPattern().size() > 1)*/)
 			{
-
 					int randNum = rand() % 2 + 4;
 					uniqueGhosts[i]->SetPattern(randNum);
 					uniqueGhosts[i]->SetTempSize(uniqueGhosts[i]->GetPattern().size());
@@ -178,10 +178,7 @@ void GhostManager::Update()
 						uniqueGhosts[i]->SetPos(uniSpawn[rand() % 2]);
 						uniqueGhosts[i]->SetIsCat(true);
 					}
-
-				
 			}
-
 			uniqueGhosts[i]->Update();
 		}
 	}
@@ -189,13 +186,14 @@ void GhostManager::Update()
 	{
 		for (int i = 0; i < uniqueGhosts.size(); i++)
 		{
-			uniqueGhosts[i]->SetState(State::Dead);
-			uniqueGhosts[i]->GetPattern().clear();
+			/*uniqueGhosts[i]->SetState(State::Dead);
+			uniqueGhosts[i]->GetPattern().clear();*/
 			uniqueGhosts[i]->SetState(State::idle);
 		}
 	}
 
 	
+
 }
 
 
@@ -212,4 +210,5 @@ void GhostManager::Render()
 			(*itGhosts)->Render();
 		}
 	}
+	
 }

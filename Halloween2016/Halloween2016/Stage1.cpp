@@ -106,6 +106,7 @@ void Stage1::Update()
 
 			if (ghostMgr->GetCycleCount() % 3 == 0)
 			{
+
 				for (int i = 0; i < uniGhosts.size(); i++)
 				{
 					if (uniGhosts[i]->GetState() != State::Dead)

@@ -80,11 +80,13 @@ void Ghost::Update()
 		{
 			alpha -= 0.01f;
 		}
+
 		if (pattern.size() != 0)
 		{
 			pattern.clear();
 		}
 		pos = { 0, 0 };
+
 	}
 	if (state == State::idle)
 	{

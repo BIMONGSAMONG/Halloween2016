@@ -18,6 +18,7 @@ private:
 	int checkDead;
 
 	bool isClear;
+	bool isDeadOneCycle;
 
 	vector<Ghost*> uniqueGhosts;
 	POINT uniSpawn[4];
